@@ -8,6 +8,7 @@ devDependencies:
   css-loader: 1.0.1_webpack@4.26.1
   html-webpack-plugin: 4.0.0-alpha_webpack@4.26.1
   prettier: 1.15.3
+  sass: 1.32.8
   style-loader: 0.23.1
   stylelint: 9.9.0
   stylelint-config-standard: 18.2.0_stylelint@9.9.0
@@ -473,11 +474,10 @@ packages:
   /anymatch/3.1.2:
     dependencies:
       normalize-path: 3.0.0
-      picomatch: 2.2.2
+      picomatch: 2.2.3
     dev: true
     engines:
       node: '>= 8'
-    optional: true
     resolution:
       integrity: sha512-P43ePfOAIupkguHUycrc4qJ9kz8ZiuOUijaETwX7THt0Y/GNK7v0aa8rY816xWjZ7rJdA5XdMcpVFTKMq+RvWg==
   /aproba/1.2.0:
@@ -658,7 +658,6 @@ packages:
     dev: true
     engines:
       node: '>=8'
-    optional: true
     resolution:
       integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==
   /bindings/1.5.0:
@@ -742,7 +741,6 @@ packages:
     dev: true
     engines:
       node: '>=8'
-    optional: true
     resolution:
       integrity: sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==
   /brorand/1.1.0:
@@ -1028,7 +1026,6 @@ packages:
     dev: true
     engines:
       node: '>= 8.10.0'
-    optional: true
     optionalDependencies:
       fsevents: 2.3.2
     resolution:
@@ -2029,7 +2026,6 @@ packages:
     dev: true
     engines:
       node: '>=8'
-    optional: true
     resolution:
       integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==
   /finalhandler/1.1.2:
@@ -2233,7 +2229,6 @@ packages:
     dev: true
     engines:
       node: '>= 6'
-    optional: true
     resolution:
       integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==
   /glob-to-regexp/0.3.0:
@@ -2776,7 +2771,6 @@ packages:
     dev: true
     engines:
       node: '>=8'
-    optional: true
     resolution:
       integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==
   /is-boolean-object/1.1.0:
@@ -2933,7 +2927,6 @@ packages:
     dev: true
     engines:
       node: '>=0.12.0'
-    optional: true
     resolution:
       integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
   /is-obj/2.0.0:
@@ -4001,13 +3994,12 @@ packages:
       node: '>=0.12'
     resolution:
       integrity: sha512-iuh7L6jA7JEGu2WxDwtQP1ddOpaJNC4KlDEFfdQajSGgGPNi4OyDc2R7QnbY2bR9QjBVGwgvTdNJZoE7RaxUMA==
-  /picomatch/2.2.2:
+  /picomatch/2.2.3:
     dev: true
     engines:
       node: '>=8.6'
-    optional: true
     resolution:
-      integrity: sha512-q0M/9eZHzmr0AulXyPwNfZjtwZ/RBZlbN3K3CErVrk50T2ASYI7Bye0EvekFY3IP1Nt2DHu0re+V2ZHIpMkuWg==
+      integrity: sha512-KpELjfwcCDUb9PeigTs2mBJzXUPzAuP2oPcA989He8Rte0+YUAjw1JVedDhuTKPkHjSYzMN3npC9luThGYEKdg==
   /pify/2.3.0:
     dev: true
     engines:
@@ -4467,11 +4459,10 @@ packages:
       integrity: sha512-1JU/8q+VgFZyxwrJ+SVIOsh+KywWGpds3NTqikiKpDMZWScmAYyKIgqkO+ARvNWJfXeXR1zxz7aHF4u4CyH6vQ==
   /readdirp/3.5.0:
     dependencies:
-      picomatch: 2.2.2
+      picomatch: 2.2.3
     dev: true
     engines:
       node: '>=8.10.0'
-    optional: true
     resolution:
       integrity: sha512-cMhu7c/8rdhkHXWsY+osBhfSy0JikwpHK/5+imo+LpeasTF8ouErHrlYkwT0++njiyuDvc7OFY5T3ukvZ8qmFQ==
   /redent/2.0.0:
@@ -4692,6 +4683,15 @@ packages:
     dev: true
     resolution:
       integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
+  /sass/1.32.8:
+    dependencies:
+      chokidar: 3.5.1
+    dev: true
+    engines:
+      node: '>=8.9.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-Sl6mIeGpzjIUZqvKnKETfMf0iDAswD9TNlv13A7aAF3XZlRPMq4VvJWBC2N2DXbp94MQVdNSFG6LfF/iOXrPHQ==
   /scheduler/0.11.3:
     dependencies:
       loose-envify: 1.4.0
@@ -5392,7 +5392,6 @@ packages:
     dev: true
     engines:
       node: '>=8.0'
-    optional: true
     resolution:
       integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
   /to-regex/3.0.2:
@@ -5990,6 +5989,7 @@ specifiers:
   prettier: 1.15.3
   react: 16.6.3
   react-dom: 16.6.3
+  sass: ^1.32.8
   style-loader: 0.23.1
   stylelint: 9.9.0
   stylelint-config-standard: 18.2.0
