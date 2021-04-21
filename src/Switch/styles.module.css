@@ -1,0 +1,91 @@
+:local .root {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: var(--switch-width);
+  user-select: none;
+  cursor: pointer;
+}
+
+:local .root .input {
+  display: none;
+}
+
+:local .root .track {
+  display: block;
+  padding: var(--switch-thumb-spacing);
+  overflow: hidden;
+  border-radius: 99999px;
+  background-color: var(--switch-color-track);
+  box-shadow: inset 0 0 0 var(--switch-thumb-spacing) var(--switch-color-track-border);
+}
+
+:local .root .thumb {
+  display: block;
+  position: relative;
+  height: var(--switch-thumb-size);
+  width: var(--switch-thumb-size);
+  border-radius: inherit;
+  transform: translateZ(0);
+}
+
+:local .root .thumb::before,
+:local .root .thumb::after {
+  position: absolute;
+  display: block;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+:local .root .thumb::after {
+  background-color: var(--switch-color-thumb);
+  box-shadow: 0 0.0625em 0.125em rgba(51, 51, 51, 0.35);
+}
+
+:local .root .thumb::before {
+  background-color: var(--switch-color-checked);
+  transform: scale(0.5) translateZ(0);
+}
+
+:local .root .thumb,
+:local .root .thumb::before {
+  transition-duration: var(--switch-transition-duration);
+  transition-timing-function: ease-in-out;
+  transition-property: transform, opacity, background-color;
+  will-change: transform, opacity;
+}
+
+:local .root .input:checked ~ .track .thumb {
+  transform: translateX(var(--switch-track-diff)) translateZ(0);
+}
+
+:local .root .input:checked ~ .track .thumb::before {
+  transform: scale(5.625) translateZ(0);
+  transition-timing-function: ease-out;
+  transition-delay: calc(var(--switch-transition-duration) * 2 / 5);
+}
+
+:local .root .input:disabled ~ .track {
+  opacity: var(--switch-opacity-disabled);
+  filter: var(--switch-filter-disabled);
+}
+
+:root {
+  --switch-height: 1.5em;
+  --switch-width: calc(var(--switch-height) * 1.625);
+  --switch-thumb-spacing: 0.125em;
+  --switch-color-checked: #4091ff;
+  --switch-color-thumb: #fff;
+  --switch-color-track: #bfbfbf;
+  --switch-color-track-border: transparent;
+  --switch-opacity-disabled: 0.5;
+  --switch-filter-disabled: saturate(0.75);
+  --switch-transition-duration: 350ms;
+  --switch-thumb-size: calc(var(--switch-height) - var(--switch-thumb-spacing) * 2);
+  --switch-track-width: calc(var(--switch-width) - var(--switch-thumb-spacing) * 2);
+  --switch-track-diff: calc(var(--switch-track-width) - var(--switch-thumb-size));
+}

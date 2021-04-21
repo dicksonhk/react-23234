@@ -1,0 +1,115 @@
+:local {
+  // .switch
+  .root {
+    $this: ".switch";
+
+    display: inline-flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    // height: var(--switch-height);
+    width: var(--switch-width);
+    user-select: none;
+    cursor: pointer;
+
+    // &__input
+    .input {
+      display: none;
+    }
+
+    // &__track
+    .track {
+      display: block;
+      padding: var(--switch-thumb-spacing);
+      overflow: hidden;
+      border-radius: 99999px;
+      background-color: var(--switch-color-track);
+      box-shadow: inset 0 0 0 var(--switch-thumb-spacing) var(--switch-color-track-border);
+    }
+
+    // &__thumb
+    .thumb {
+      display: block;
+      position: relative;
+      height: var(--switch-thumb-size);
+      width: var(--switch-thumb-size);
+      border-radius: inherit;
+      transform: translateZ(0);
+
+      &::before,
+      &::after {
+        position: absolute;
+        display: block;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+      }
+
+      // the actual "thumb"
+      &::after {
+        background-color: var(--switch-color-thumb);
+        box-shadow: 0 #{1px / 16px * 1em} #{2px / 16px * 1em} hsl(0deg 0% 20% / 35%);
+      }
+
+      // the background layer for switch "on" state
+      &::before {
+        background-color: var(--switch-color-checked);
+        transform: scale(0.5) translateZ(0);
+      }
+    }
+
+    // transition
+    .thumb,
+    .thumb::before {
+      transition-duration: var(--switch-transition-duration);
+      transition-timing-function: ease-in-out;
+      transition-property: transform, opacity, background-color;
+      will-change: transform, opacity;
+    }
+
+    // "on" state
+    // &__input:checked
+    .input:checked {
+      // #{$this}__track
+      & ~ .track {
+        // #{$this}__thumb
+        .thumb {
+          transform: translateX(var(--switch-track-diff)) translateZ(0);
+
+          &::before {
+            transform: scale(3.75 * 1.5) translateZ(0);
+            transition-timing-function: ease-out;
+            transition-delay: calc(var(--switch-transition-duration) * 2 / 5);
+          }
+        }
+      }
+    }
+
+    .input:disabled {
+      // #{$this}__track
+      & ~ .track {
+        opacity: var(--switch-opacity-disabled);
+        filter: var(--switch-filter-disabled);
+      }
+    }
+  }
+}
+
+:root {
+  --switch-height: #{24px / 16px * 1em};
+  --switch-width: calc(var(--switch-height) * 1.625);
+  --switch-thumb-spacing: #{2px / 16px * 1em};
+  --switch-color-checked: #4091ff;
+  --switch-color-thumb: #fff;
+  --switch-color-track: #bfbfbf;
+  --switch-color-track-border: transparent;
+  --switch-opacity-disabled: 0.5;
+  --switch-filter-disabled: saturate(0.75);
+  --switch-transition-duration: 350ms;
+  --switch-thumb-size: calc(var(--switch-height) - var(--switch-thumb-spacing) * 2);
+  --switch-track-width: calc(var(--switch-width) - var(--switch-thumb-spacing) * 2);
+  --switch-track-diff: calc(var(--switch-track-width) - var(--switch-thumb-size));
+}

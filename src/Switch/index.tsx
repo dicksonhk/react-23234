@@ -1,84 +1,65 @@
 import React from "react";
-import "./index.css";
-import { uid } from "../utils";
 
-// If you wanna implement by TypeScript (Advanced Requirement 1), then rename this file to index.tsx and remove index.jsx
-// Otherwise, remove this file
+import {pick, excludeUndefined} from "../utils";
 
-interface SwitchProps {
-  checked?: boolean;
-  onChange?: (checked: boolean) => void;
-  disabled?: boolean;
-  unControlled?: boolean;
-}
+// @ts-ignore
+import styles from "./styles.module.css";
 
-type SwitchState = Required<Pick<SwitchProps, "checked" | "disabled">>;
+const keyofPropsFowarded = ["checked", "defaultChecked", "id", "name", "value", "required", "readOnly", "disabled", "aria-describedby", "aria-label", "aria-labelledby"] as const;
+
+const keyofProps = ["onChange", ...keyofPropsFowarded] as const;
+
+export type SwitchPropsForwarded = Partial<Pick<React.InputHTMLAttributes<HTMLInputElement>, typeof keyofPropsFowarded[number]>>;
+export type SwitchProps = SwitchPropsForwarded & {
+    onChange?: (checked: boolean) => void;
+};
+
+export type SwitchState = Partial<Pick<SwitchProps, "checked">>;
 
 export default class Switch extends React.PureComponent<SwitchProps> {
-  private readonly _id = uid();
-  public state: SwitchState = {
-    checked: !!this.props.checked,
-    disabled: !!this.props.disabled,
-  };
-  public readonly inputRef = React.createRef<HTMLInputElement>();
-
-  private handleChange: React.ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    // if (!this.props.unControlled) {
-    // }
-    const target = event.currentTarget; // save SyntheticEvent in the function scope
-    const { checked, disabled } = {
-      ...target,
+    public state: SwitchState = {
+        checked: this.props.checked != null ? this.props.checked : !!this.props.defaultChecked,
     };
 
-    if (target) {
-      this.setState(
-        () => ({
-          checked,
-          disabled,
-        }),
-        this.emitChange
-      );
-    }
-  };
+    private handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        const {currentTarget} = {...e};
+        const {checked} = {...(e && e.currentTarget)};
 
-  private emitChange(checked?: boolean) {
-    if (this.props.onChange) {
-      this.props.onChange(checked != null ? checked : this.state.checked);
-    }
-  }
-
-  render() {
-    return (
-      <div className="comp-switch">
-        <div className="comp-switch__inner">
-          <input
-            className="comp-switch__input"
-            type="checkbox"
-            id={this._id}
-            name={this._id}
-            disabled={!!this.props.disabled}
-            onChange={this.handleChange}
-            ref={this.inputRef}
-            {...(this.props.unControlled
-              ? {
-                  defaultChecked: !!this.props.checked,
+        if (this.props.onChange instanceof Function) {
+            try {
+                this.props.onChange.call(currentTarget, checked);
+            } catch (error) {
+                if (process.env.NODE_ENV !== "production") {
+                    console.error(error);
                 }
-              : {
-                  checked: this.props.checked,
+            }
+        }
+    };
+
+    render() {
+        const {...forwardedProps} = excludeUndefined(pick(this.props, keyofPropsFowarded));
+        return (
+            <label
+                className={styles.root}
+                {...(this.props.id && {
+                    htmlFor: this.props.id,
                 })}
-          />
-          <label className="comp-switch__area" htmlFor={this._id}>
-            <div className="comp-switch__track">
-              <div className="comp-switch__track-on">
-                <div className="comp-switch__track-on__bg" />
-              </div>
-            </div>
-            <div className="comp-switch__knob" />
-          </label>
-        </div>
-      </div>
-    );
-  }
+            >
+                <input
+                    className={styles.input}
+                    type="checkbox"
+                    // {...this.props.checked != null && {
+                    //     checked: this.state.checked,
+                    // }}
+                    onChange={this.handleChange}
+                    {...forwardedProps}
+                />
+                <span className={styles.track} aria-hidden="true">
+                    <span className={styles.thumb} aria-hidden="true" />
+                </span>
+            </label>
+        );
+    }
 }
+
+export {Switch};

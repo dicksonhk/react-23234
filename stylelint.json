@@ -1,3 +1,14 @@
 {
-  "extends": "stylelint-config-standard"
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-css-modules"
+  ],
+  "rules": {
+    "no-duplicate-selectors": null,
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true
+  }
 }

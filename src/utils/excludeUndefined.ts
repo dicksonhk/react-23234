@@ -1,0 +1,1 @@
+export const excludeUndefined = <T, K extends keyof T>(obj: T) => Object.keys(obj).reduce((result, key) => (obj[key] !== undefined ? Object.assign(result, {[key]: obj[key]}) : result), {} as Pick<T, K>);

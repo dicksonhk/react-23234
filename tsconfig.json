@@ -1,20 +1,30 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-    "module": "esnext",
-    "target": "es5",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
+    "target": "ESNext",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "types": [
+      "vite/client"
+    ],
     "allowJs": true,
+    "skipLibCheck": false,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
-    "jsx": "react",
-    "lib": ["dom", "es2017"],
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "suppressImplicitAnyIndexErrors": true,
-    "strict": true,
-    "downlevelIteration": true
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react"
   },
-  "include": ["./src"]
+  "include": [
+    "src/**/*"
+  ]
 }

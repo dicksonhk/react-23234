@@ -1,3 +1,4 @@
+*.css.map
 /dist
 __generated__/
 

@@ -1,0 +1,214 @@
+:local .configItem {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: var(--card-padding);
+  border-radius: var(--card-border-radius);
+  background-color: var(--card-background-color);
+}
+
+:local .configItem {
+  --card-padding: var(--card-padding--compat);
+}
+
+:local .configItem {
+  --transition-duration: 250ms;
+  --switch-transition-duration: var(--transition-duration);
+  --switch-color-track: rgba(255, 255, 255, 0.05);
+  --switch-color-track-border: rgba(255, 255, 255, 0.1);
+
+  position: relative;
+  padding-bottom: 0;
+  background: none;
+  line-height: 1;
+}
+
+:local .configItem::before,
+:local .configItem::after {
+  position: absolute;
+  display: block;
+  content: "";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+:local .configItem::before {
+  background-color: var(--card-background-color);
+}
+
+:local .configItem::after {
+  border: 2px solid var(--card-background-color);
+}
+
+:local .configItem label {
+  cursor: pointer;
+}
+
+:local .configItem__header {
+  padding-bottom: var(--card-padding);
+}
+
+:local .configItem__body {
+  overflow: hidden;
+}
+
+:local .configItem__body > *:first-child {
+  padding-top: calc(var(--card-padding) * 0.5);
+}
+
+:local .configItem__body > *:last-child {
+  padding-bottom: calc(var(--card-padding) * 1.5);
+}
+
+:local .configItem__toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--card-padding);
+  margin: calc(-1 * var(--card-padding));
+}
+
+:local .configItem__value {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 0.5em;
+  justify-content: start;
+  box-sizing: content-box;
+  height: 2rem;
+
+  --color--alpha: 0.65;
+
+  color: rgba(var(--color--rgb), var(--color--alpha));
+  font-family: monospace;
+}
+
+:local .configItem__value__stringInput {
+  background-color: var(--card-background-color);
+  border-radius: 0.25em;
+  height: 2rem;
+  padding: 0.5em 0.85em;
+}
+
+:local .configItem__value__booleanInput {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 0.5em;
+  height: 1.725rem;
+  padding: 0.25em 0.75em;
+  background-color: var(--card-background-color);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 0.25em;
+}
+
+:local .configItem__value__booleanInput input[type="checkbox"] {
+  opacity: var(--color--alpha);
+  margin: calc(-1 * var(--line-height) * 0.5em) 0;
+  order: 1;
+}
+
+:local .configItem__value__booleanInput input[type="checkbox"],
+:local .configItem__value__booleanInput input[type="checkbox"] ~ [data-true],
+:local .configItem__value__booleanInput input[type="checkbox"] ~ [data-true]::before {
+  display: block;
+}
+
+:local .configItem__value__booleanInput input[type="checkbox"] ~ [data-true]::before {
+  content: attr(data-true);
+}
+
+:local .configItem__value__booleanInput input[type="checkbox"]:not(:checked) ~ [data-false]::before {
+  content: attr(data-false);
+}
+
+:local .configItem::before,
+:local .configItem::after,
+:local .configItem__body {
+  will-change: var(--transition-property);
+  transition-property: var(--transition-property);
+  transition-duration: var(--transition-duration);
+  transition-timing-function: ease-out;
+  transform: translateZ(0);
+}
+
+:local .configItem::before,
+:local .configItem::after {
+  --transition-property: opacity;
+}
+
+:local .configItem__body {
+  --transition-property: max-height;
+}
+
+:local .configItem:not([data-enabled])::before {
+  opacity: 0;
+}
+
+:local .configItem:not([data-enabled])::after {
+  opacity: 1;
+}
+
+:local .configItem:not([data-enabled]) .configItem__body {
+  max-height: 0;
+  pointer-events: none;
+}
+
+:local .configItem[data-enabled]::before {
+  opacity: 1;
+}
+
+:local .configItem[data-enabled]::after {
+  opacity: 0;
+}
+
+:local .configItem[data-enabled] .configItem__body {
+  max-height: calc(var(--card-padding) * 2 + 2rem);
+}
+
+:local .mainWrapper > *:nth-child(1),
+:local .mainWrapper > *:nth-child(2) {
+  position: sticky;
+  top: 0;
+}
+
+@media screen and (min-width: 768px) {
+  :local .mainWrapper {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  :local .mainWrapper > *:nth-child(1),
+  :local .mainWrapper > *:nth-child(2) {
+    top: 1.5rem;
+  }
+
+  :local .mainWrapper > *:nth-child(1) {
+    grid-column: span 2;
+  }
+
+  :local .mainWrapper > *:nth-child(2) {
+    margin-bottom: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :local .mainWrapper {
+    background-color: transparent !important;
+  }
+
+  :local .mainWrapper > *:nth-child(2) {
+    box-shadow: 0 3px 12px 0 #121212;
+  }
+
+  :local .renderedHtmlCode {
+    display: none !important;
+  }
+
+  :local :global(#app) {
+    padding: 0 !important;
+  }
+}
